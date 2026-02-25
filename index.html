@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M Srinivas Reddy | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        
+        :root {
+            --gold: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --silver: linear-gradient(135deg, #707070, #e0e0e0, #8d8d8d, #f0f0f0, #7a7a7a);
+            --bg-color: #050505;
+            --text-main: #e0e0e0;
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --border-color: rgba(191, 149, 63, 0.2);
+        }
+
+        /* Light Mode Overrides */
+        .light-mode {
+            --bg-color: #f8f9fa;
+            --text-main: #1a1a1a;
+            --card-bg: rgba(0, 0, 0, 0.03);
+            --border-color: rgba(191, 149, 63, 0.4);
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            overflow-x: hidden; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            scroll-behavior: smooth;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .gold-shine {
+            background: var(--gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            display: inline-block;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: #000;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-gold:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(191, 149, 63, 0.4); }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            min-width: 85vw; /* Better for mobile */
+            flex-shrink: 0;
+            scroll-snap-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .glass-card { min-width: 320px; scroll-snap-align: start; }
+        }
+
+        .glass-card:hover { 
+            border-color: #fcf6ba; 
+            background: rgba(191, 149, 63, 0.05);
+            transform: translateY(-10px);
+        }
+
+        .scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 2rem;
+            padding: 2rem 0;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch; /* Momentum scroll for iOS */
+        }
+        
+        .scroll-container::-webkit-scrollbar { display: none; }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 0.4; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .profile-container:hover img { transform: scale(1.1); }
+
+        .animated-ring {
+            position: absolute;
+            inset: -8px;
+            border: 2px solid #bf953f;
+            border-radius: 50%;
+            animation: pulse-ring 3s infinite ease-in-out;
+            opacity: 0.5;
+        }
+
+        #tsparticles { position: fixed; width: 100%; height: 100%; z-index: -1; }
+        
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        #theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="tsparticles"></div>
+
+    <button id="theme-toggle" aria-label="Toggle Theme">
+        <i class="fas fa-moon" id="theme-icon"></i>
+    </button>
+
+    <nav class="flex justify-between items-center p-8 max-w-7xl mx-auto">
+        <div class="text-2xl font-extrabold tracking-tighter gold-shine">MSR</div>
+        <div class="space-x-8 hidden md:flex text-xs uppercase tracking-widest font-bold">
+            <a href="#projects" class="hover:text-yellow-500 transition">Projects</a>
+            <a href="#certifications" class="hover:text-yellow-500 transition">Certifications</a>
+            <a href="#skills" class="hover:text-yellow-500 transition">Skills</a>
+            <a href="mailto:msrinivasreddy2112@gmail.com" class="hover:text-yellow-500 transition">Contact</a>
+        </div>
+    </nav>
+
+    <section class="max-w-7xl mx-auto px-6 py-16 flex flex-col-reverse md:flex-row items-center gap-12">
+        <div class="md:w-2/3 text-center md:text-left">
+            <p class="text-gray-400 font-mono mb-4 uppercase tracking-widest flex items-center justify-center md:justify-start gap-2">
+                <span class="h-[1px] w-8 bg-yellow-600"></span> Welcome to my Portfolio
+            </p>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">Hi, I'm <br><span class="gold-shine">M Srinivas Reddy</span></h1>
+            <p class="text-gray-400 text-lg md:text-xl mb-10 max-w-2xl leading-relaxed">
+                Computer Science Engineer focused on building secure and efficient solutions. I apply my knowledge in practical ways to deliver scalable systems, improve performance, and optimize operations across diverse projects.
+            </p>
+            
+            <div class="flex flex-wrap gap-6 items-center justify-center md:justify-start">
+                <a href="M Srinivas Reddy.pdf" target="_blank" class="btn-gold px-8 py-3 rounded-xl font-bold transition">View Resume</a>
+                
+                <div class="flex gap-5 text-2xl text-gray-500">
+                    <a href="https://www.linkedin.com/in/m-srinivas-reddy-cloud-support-associate/" target="_blank" class="hover:text-yellow-500 transition"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/srinu404" target="_blank" class="hover:text-white transition"><i class="fab fa-github"></i></a>
+                    <a href="mailto:msrinivasreddy2112@gmail.com" class="hover:text-yellow-500 transition"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="md:w-1/3 flex justify-center">
+            <div class="relative profile-container w-48 h-48 md:w-72 md:h-72">
+                <div class="animated-ring"></div>
+                <div class="relative w-full h-full rounded-full overflow-hidden border-4 border-yellow-600/30 z-10">
+                    <img src="profile.jpg" alt="Srinivas Reddy" class="object-cover w-full h-full transition-transform duration-500 ease-in-out">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="max-w-7xl mx-auto px-6 py-20">
+        <h2 class="text-4xl font-bold mb-2">Featured <span class="gold-shine">Projects</span></h2>
+        <p class="text-gray-500 text-sm font-mono italic mb-4">Auto-Switching | Swipe or click to explore</p>
+        
+        <div class="scroll-container" id="project-slider">
+            <a href="https://awsexam.us.cc" target="_blank" class="glass-card p-8 block">
+                <div class="gold-shine mb-6 text-3xl"><i class="fas fa-cloud"></i></div>
+                <h3 class="text-xl font-bold mb-3">AWS Exam Portal</h3>
+                <p class="text-gray-400 text-sm mb-6">Full-stack platform maintaining a 99% uptime record on AWS.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">EC2</span><span class="skill-tag">VPC</span><span class="skill-tag">MySQL</span><span class="skill-tag">PHP</span><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span>
+                </div>
+            </a>
+
+            <a href="https://github.com/srinu404/school" target="_blank" class="glass-card p-8 block">
+                <div class="gold-shine mb-6 text-3xl"><i class="fas fa-school"></i></div>
+                <h3 class="text-xl font-bold mb-3">School DB Management</h3>
+                <p class="text-gray-400 text-sm mb-6">Multi-role system managing 500+ records with secure authentication.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">XMAPP Server</span><span class="skill-tag">MySQL</span><span class="skill-tag">PHP</span><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span>
+                </div>
+            </a>
+
+            <a href="https://github.com/srinu404/Travel" target="_blank" class="glass-card p-8 block">
+                <div class="gold-shine mb-6 text-3xl"><i class="fas fa-plane"></i></div>
+                <h3 class="text-xl font-bold mb-3">Tourism Ticket System</h3>
+                <p class="text-gray-400 text-sm mb-6">Engineered automated infrastructure workflows for high-availability booking.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">Automation</span><span class="skill-tag">MySQL</span><span class="skill-tag">Python</span><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section id="certifications" class="max-w-7xl mx-auto px-6 py-20">
+        <h2 class="text-4xl font-bold mb-2">Global <span class="gold-shine">Certifications</span></h2>
+        <p class="text-gray-500 text-sm font-mono italic mb-4">Verified Professional Credentials</p>
+        
+        <div class="scroll-container" id="cert-slider">
+            <a href="https://www.credly.com/badges/5bc0078e-1b86-4325-9b01-9cdd7507f59a" target="_blank" class="glass-card p-8 flex flex-col items-center text-center block">
+                <i class="fab fa-aws text-4xl mb-4 gold-shine"></i>
+                <h4 class="font-bold">AWS Certified Cloud Practitioner</h4>
+                <p class="text-xs text-gray-500 mt-2">Amazon Web Services (2026)</p>
+            </a>
+
+            <a href="https://www.credly.com/badges/89fafb19-5523-4bf2-9d6b-9f061e8c4207" target="_blank" class="glass-card p-8 flex flex-col items-center text-center block">
+                <i class="fab fa-aws text-4xl mb-4 gold-shine"></i>
+                <h4 class="font-bold">AWS re/Start Graduate</h4>
+                <p class="text-xs text-gray-500 mt-2">Amazon Web Services (2026)</p>
+            </a>
+
+            <a href="https://www.credly.com/badges/7fdb211d-0e68-4ab7-a0ca-dd8dc71942fc" target="_blank" class="glass-card p-8 flex flex-col items-center text-center block">
+                <i class="fas fa-network-wired text-4xl mb-4 gold-shine"></i>
+                <h4 class="font-bold">Networking Basics</h4>
+                <p class="text-xs text-gray-500 mt-2">NASSCOM / EdCreate (2025)</p>
+            </a>
+
+            <a href="https://www.credly.com/badges/8602105c-ce54-49bb-8d16-110e99e3199a" target="_blank" class="glass-card p-8 flex flex-col items-center text-center block">
+                <i class="fas fa-shield-alt text-4xl mb-4 gold-shine"></i>
+                <h4 class="font-bold">Introduction to Cybersecurity</h4>
+                <p class="text-xs text-gray-500 mt-2">Cisco (2023)</p>
+            </a>
+        </div>
+    </section>
+
+    <section id="skills" class="max-w-7xl mx-auto px-6 py-20">
+        <h2 class="text-4xl font-bold mb-2">Technical <span class="gold-shine">Arsenal</span></h2>
+        <p class="text-gray-500 mb-12">Tools and technologies I use to bring data to life.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="glass-card p-8">
+                <h4 class="gold-shine font-bold mb-6">Cloud</h4>
+                <div class="flex flex-wrap gap-3">
+                    <span class="skill-tag">AWS</span><span class="skill-tag">EC2</span><span class="skill-tag">S3</span><span class="skill-tag">RDS</span><span class="skill-tag">IAM</span><span class="skill-tag">VPC</span>
+                    <span class="skill-tag"> CloudWatch</span><span class="skill-tag">Cost Management</span>
+                </div>
+            </div>
+
+            <div class="glass-card p-8">
+                <h4 class="gold-shine font-bold mb-6">Networking</h4>
+                <div class="flex flex-wrap gap-3">
+                    <span class="skill-tag">TCP/IP</span>
+                    <span class="skill-tag">OSI Model</span>
+                    <span class="skill-tag">DNS Resolution</span>
+                    <span class="skill-tag">Subnetting</span>
+                    <span class="skill-tag">Firewalls (Security Groups)</span>
+                    <span class="skill-tag">Routing & Switching</span>
+                    <span class="skill-tag">Backup & Recovery</span>
+                </div>
+            </div>
+
+            <div class="glass-card p-8">
+                <h4 class="gold-shine font-bold mb-6">Languages</h4>
+                <div class="flex flex-wrap gap-3">
+                    <span class="skill-tag">Python</span><span class="skill-tag">JS</span><span class="skill-tag">SQL</span><span class="skill-tag">HTML & CSS</span><span class="skill-tag">PHP</span>
+                </div>
+            </div>
+
+            <div class="glass-card p-8">
+                <h4 class="gold-shine font-bold mb-6">OS</h4>
+                <div class="flex flex-wrap gap-3">
+                    <span class="skill-tag">Windows</span><span class="skill-tag">Ubuntu</span><span class="skill-tag">Kali Linux</span><span class="skill-tag">RedHat Linux</span>
+                </div>
+            </div>
+
+            <div class="glass-card p-8">
+                <h4 class="gold-shine font-bold mb-6">Tools & Platforms</h4>
+                <div class="flex flex-wrap gap-3">
+                    <span class="skill-tag">Git & GitHub</span>
+                    <span class="skill-tag">VS Code</span>
+                    <span class="skill-tag">XAMPP Server</span>
+                    <span class="skill-tag">LAMP Stack</span>
+                    <span class="skill-tag">Splunk (Log Analysis)</span>
+                    <span class="skill-tag">Shell Scripting (Bash)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="max-w-7xl mx-auto px-6 py-20 border-t border-white/5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <div>
+                <div class="text-3xl font-bold gold-shine mb-4">&lt;MSR/&gt;</div>
+                <p class="text-gray-400 font-semibold text-lg">Software | Network | Cloud Engineer</p>
+            </div>
+            
+            <div class="flex flex-col md:items-end gap-4">
+                <div class="flex flex-col md:items-end gap-2 text-gray-400">
+                    <p class="flex items-center gap-3"><i class="fas fa-envelope gold-shine"></i> msrinivasreddy2112@gmail.com</p>
+                    <p class="flex items-center gap-3"><i class="fas fa-phone gold-shine"></i> +91 8050621229</p>
+                </div>
+                <div class="flex gap-6 text-xl mt-4">
+                    <a href="https://www.linkedin.com/in/m-srinivas-reddy-cloud-support-associate/" target="_blank" class="hover:text-yellow-500 transition"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="https://github.com/srinu404" target="_blank" class="hover:text-yellow-500 transition"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://www.credly.com/users/m-srinivas-reddy-2021-22/badges#credly" target="_blank" class="hover:text-yellow-500 transition"><i class="fas fa-certificate"></i> Credly</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-16 text-center">
+            <p class="text-xs text-gray-600">
+                © 2026 by M Srinivas Reddy.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Particles Background
+        tsParticles.load("tsparticles", {
+            particles: {
+                number: { value: 60, density: { enable: true, area: 1000 } },
+                color: { value: ["#bf953f", "#ffffff"] },
+                links: { enable: true, distance: 150, color: "#bf953f", opacity: 0.1, width: 1 },
+                move: { enable: true, speed: 0.5 }
+            }
+        });
+
+        // Optimized Smooth Auto Scroll for Mobile
+        function setupAutoScroll(containerId) {
+            const container = document.getElementById(containerId);
+            let isInteracting = false;
+            let scrollSpeed = 0.8; 
+
+            container.addEventListener('mouseenter', () => isInteracting = true);
+            container.addEventListener('mouseleave', () => isInteracting = false);
+            container.addEventListener('touchstart', () => isInteracting = true, {passive: true});
+            container.addEventListener('touchend', () => {
+                setTimeout(() => { isInteracting = false; }, 2000);
+            }, {passive: true});
+
+            function scrollStep() {
+                if (!isInteracting) {
+                    container.scrollLeft += scrollSpeed;
+                    if (container.scrollLeft >= (container.scrollWidth - container.clientWidth - 1)) {
+                        container.scrollLeft = 0;
+                    }
+                }
+                requestAnimationFrame(scrollStep);
+            }
+            requestAnimationFrame(scrollStep);
+        }
+
+        setupAutoScroll('project-slider');
+        setupAutoScroll('cert-slider');
+
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            const isLight = body.classList.contains('light-mode');
+            themeIcon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        });
+
+        // Persistence check
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light-mode');
+            themeIcon.className = 'fas fa-sun';
+        }
+    </script>
+</body>
+</html>
